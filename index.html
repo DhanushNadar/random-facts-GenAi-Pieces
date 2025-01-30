@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Facts Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #0d0d0d, #232526, #414345);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            animation: bgFade 5s infinite alternate ease-in-out;
+        }
+
+        @keyframes bgFade {
+            from { background: linear-gradient(135deg, #0d0d0d, #232526, #414345); }
+            to { background: linear-gradient(135deg, #414345, #232526, #0d0d0d); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            width: 85%;
+            max-width: 700px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffdd57;
+            margin-bottom: 25px;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .category {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .category:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .fact-display {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 400;
+            min-height: 80px;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: factAppear 0.5s ease-in-out;
+        }
+
+        @keyframes factAppear {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Discover a Random Fact!</h1>
+        <div class="categories">
+            <div class="category" data-category="space">🌌 Space</div>
+            <div class="category" data-category="animals">🐾 Animals</div>
+            <div class="category" data-category="food">🍔 Food</div>
+            <div class="category" data-category="mysteries">🔮 Mysteries</div>
+            <div class="category" data-category="movies">🎬 Movies</div>
+        </div>
+        <div class="fact-display">
+            <p id="factDisplay">Click a category to reveal a fact!</p>
+        </div>
+    </div>
+    <script>
+        const facts = {
+            space: [
+                "Neutron stars are so dense that a sugar-cube-sized piece would weigh about a billion tons.",
+                "A day on Mercury is longer than a year on Mercury.",
+                "Saturn's moon Titan has lakes of liquid methane and ethane.",
+                "The Sun accounts for about 99.8% of the total mass in our Solar System.",
+                "Venus is the hottest planet in the Solar System, even hotter than Mercury."
+            ],
+            animals: [
+                "Octopuses have three hearts and blue blood.",
+                "A group of flamingos is called a ‘flamboyance.’",
+                "Dolphins have names for each other.",
+                "Honey never spoils; archaeologists have found pots of honey in ancient tombs still edible!",
+                "Cows have best friends and get stressed when separated."
+            ],
+            food: [
+                "White chocolate isn’t actually chocolate because it doesn’t contain cocoa solids.",
+                "Honey is the only food that never expires.",
+                "Apples give you more energy than coffee due to natural sugars and fibers.",
+                "The world’s most expensive coffee is made from cat poop!",
+                "Chocolate was once used as currency by the Aztecs."
+            ],
+            mysteries: [
+                "The Bermuda Triangle has reportedly swallowed ships and planes without a trace.",
+                "Some people believe the Voynich Manuscript is an undecipherable alien script.",
+                "Area 51 is still one of the most secretive locations in the world.",
+                "Nobody knows who built the Georgia Guidestones or why.",
+                "There are over 100 uncontacted tribes in the world today."
+            ],
+            movies: [
+                "The lion roars in the MGM logo were recorded by multiple lions, not just one.",
+                "Toy Story was the first fully computer-animated feature film.",
+                "James Cameron drew the famous 'Jack and Rose' Titanic sketch himself.",
+                "The iconic lightsaber sound in Star Wars was created using an old TV and a film projector.",
+                "The longest movie ever made is ‘Logistics,’ running for 35 days."
+            ]
+        };
+
+        document.querySelectorAll('.category').forEach(category => {
+            category.addEventListener('click', function() {
+                const categoryType = this.getAttribute('data-category');
+                const factDisplay = document.getElementById('factDisplay');
+                const randomFact = facts[categoryType][Math.floor(Math.random() * facts[categoryType].length)];
+                factDisplay.textContent = randomFact;
+            });
+        });
+    </script>
+</body>
+</html>
